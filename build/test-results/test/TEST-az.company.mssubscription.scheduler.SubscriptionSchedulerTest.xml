@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="az.company.mssubscription.scheduler.SubscriptionSchedulerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-20T21:19:46" hostname="DESKTOP-B1MRP4C" time="1.001">
+  <properties/>
+  <testcase name="TestSubscriptionScheduler" classname="az.company.mssubscription.scheduler.SubscriptionSchedulerTest" time="1.001"/>
+  <system-out><![CDATA[01:19:47.010 [Test worker] INFO az.company.mssubscription.scheduler.SubscriptionScheduler - Subscription status checking...
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
