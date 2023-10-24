@@ -13,5 +13,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  rabbitmq:
+    container_name: subscription_rabbitmq
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ingress
+      RABBITMQ_DEFAULT_PASS: ingress
+
 volumes:
   postgres_data:

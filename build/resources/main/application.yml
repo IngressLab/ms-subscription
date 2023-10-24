@@ -16,8 +16,19 @@ spring:
     show-sql: true
     open-in-view: false
 
+  rabbitmq:
+    host: localhost
+    username: ingress
+    password: ingress
+    port: 5672
+
   liquibase:
     change-log: classpath:liquibase/changelog-master.yml
+
+rabbitmq:
+  queue:
+    subscription: SUBSCRIPTION_Q
+    subscription-dlq: SUBSCRIPTION_DLQ
 
 
 

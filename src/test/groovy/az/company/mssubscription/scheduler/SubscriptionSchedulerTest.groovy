@@ -4,8 +4,8 @@ import az.company.mssubscription.service.SubscriptionService
 import spock.lang.Specification
 
 class SubscriptionSchedulerTest extends Specification{
-    private SubscriptionService subscriptionService;
-    private SubscriptionScheduler scheduler;
+     SubscriptionService subscriptionService;
+     SubscriptionScheduler scheduler;
 
     def setup() {
         subscriptionService = Mock()
