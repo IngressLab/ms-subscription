@@ -3,14 +3,16 @@ package az.company.mssubscription.mapper;
 import az.company.mssubscription.dao.entity.SubscriptionEntity;
 import az.company.mssubscription.model.queue.SubscriptionQueueDto;
 import az.company.mssubscription.model.request.CreateSubscriptionRequest;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static az.company.mssubscription.enums.SubscriptionStatus.ACTIVE;
+
 public class SubscriptionMapper {
 
-    public static SubscriptionEntity buildSubscriptionEntity(CreateSubscriptionRequest createSubscriptionRequest){
+    public static SubscriptionEntity buildSubscriptionEntity(CreateSubscriptionRequest createSubscriptionRequest) {
         return SubscriptionEntity.builder()
                 .userId(createSubscriptionRequest.userId())
                 .productId(createSubscriptionRequest.productId())
@@ -23,7 +25,7 @@ public class SubscriptionMapper {
                 .build();
     }
 
-    public static SubscriptionQueueDto buildSubscriptionQueueDto(SubscriptionEntity subscriptionEntity){
+    public static SubscriptionQueueDto buildSubscriptionQueueDto(SubscriptionEntity subscriptionEntity) {
         return SubscriptionQueueDto.builder()
                 .userId(subscriptionEntity.getUserId())
                 .productId(subscriptionEntity.getProductId())
@@ -36,5 +38,4 @@ public class SubscriptionMapper {
     public static List<SubscriptionQueueDto> buildSubscriptionQueueDto(List<SubscriptionEntity> subscriptions) {
         return subscriptions.stream().map(SubscriptionMapper::buildSubscriptionQueueDto).collect(Collectors.toList());
     }
-
 }

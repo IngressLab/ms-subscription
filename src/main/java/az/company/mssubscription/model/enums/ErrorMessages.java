@@ -7,11 +7,9 @@ import lombok.Getter;
 @Getter
 public enum ErrorMessages {
 
-    SUBSCRIPTION_NOT_FOUND("Subscription not found with this ID: %s "),
-
+    SUBSCRIPTION_NOT_FOUND_ERROR("Subscription not found with this ID: %s "),
     UNEXPECTED_ERROR("Something went wrong!"),
-
-    METHOD_NOT_ALLOWED("Method not allowed exception!");
+    METHOD_NOT_ALLOWED_ERROR("Method not allowed exception!");
 
     private final String message;
 }

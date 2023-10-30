@@ -2,7 +2,11 @@ package az.company.mssubscription.model.queue;
 
 import az.company.mssubscription.enums.SubscriptionStatus;
 import az.company.mssubscription.enums.SubscriptionType;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.io.Serial;

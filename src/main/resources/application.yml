@@ -13,7 +13,6 @@ spring:
       hibernate:
         temp:
           use_jdbc_metadata_files: false
-    show-sql: true
     open-in-view: false
 
   rabbitmq:
@@ -28,9 +27,3 @@ spring:
 rabbitmq:
   queue:
     subscription: SUBSCRIPTION_Q
-    subscription-dlq: SUBSCRIPTION_DLQ
-
-
-
-
-

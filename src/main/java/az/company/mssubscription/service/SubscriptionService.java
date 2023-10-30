@@ -1,8 +1,8 @@
 package az.company.mssubscription.service;
 
+import az.company.mssubscription.annotation.Log;
 import az.company.mssubscription.dao.entity.SubscriptionEntity;
 import az.company.mssubscription.dao.repository.SubscriptionRepository;
-import az.company.mssubscription.enums.SubscriptionStatus;
 import az.company.mssubscription.exception.NotFoundException;
 import az.company.mssubscription.model.request.CreateSubscriptionRequest;
 import az.company.mssubscription.queue.MessagePublisher;
@@ -19,8 +19,9 @@ import static az.company.mssubscription.enums.SubscriptionStatus.DELETED;
 import static az.company.mssubscription.enums.SubscriptionStatus.EXPIRED;
 import static az.company.mssubscription.mapper.SubscriptionMapper.buildSubscriptionEntity;
 import static az.company.mssubscription.mapper.SubscriptionMapper.buildSubscriptionQueueDto;
-import static az.company.mssubscription.model.enums.ErrorMessages.SUBSCRIPTION_NOT_FOUND;
+import static az.company.mssubscription.model.enums.ErrorMessages.SUBSCRIPTION_NOT_FOUND_ERROR;
 
+@Log
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -37,7 +38,7 @@ public class SubscriptionService {
         var subscriptionEntity = buildSubscriptionEntity(createSubscriptionRequest);
         subscriptionRepository.save(subscriptionEntity);
         var subscriptionQueueDto = buildSubscriptionQueueDto(subscriptionEntity);
-        messagePublisher.publishMessage(queue,subscriptionQueueDto);
+        messagePublisher.publishMessage(queue, subscriptionQueueDto);
     }
 
     @Transactional
@@ -46,8 +47,7 @@ public class SubscriptionService {
         subscription.setStatus(DELETED);
         subscriptionRepository.save(subscription);
         var subscriptionQueueDto = buildSubscriptionQueueDto(subscription);
-        messagePublisher.publishMessage(queue,subscriptionQueueDto);
-
+        messagePublisher.publishMessage(queue, subscriptionQueueDto);
     }
 
     @Transactional
@@ -57,12 +57,12 @@ public class SubscriptionService {
         expiredSubscriptions.forEach(subscription -> subscription.setStatus(EXPIRED));
         subscriptionRepository.saveAll(expiredSubscriptions);
         var subscriptionQueueDtoList = buildSubscriptionQueueDto(expiredSubscriptions);
-        messagePublisher.publishMessage(queue,subscriptionQueueDtoList);
+        messagePublisher.publishMessage(queue, subscriptionQueueDtoList);
     }
 
-    SubscriptionEntity fetchIfExist(Long id) {
+    public SubscriptionEntity fetchIfExist(Long id) {
         return subscriptionRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(String.valueOf(SUBSCRIPTION_NOT_FOUND),
-                        String.format(SUBSCRIPTION_NOT_FOUND.getMessage(), id)));
+                () -> new NotFoundException(String.valueOf(SUBSCRIPTION_NOT_FOUND_ERROR),
+                        String.format(SUBSCRIPTION_NOT_FOUND_ERROR.getMessage(), id)));
     }
 }

@@ -4,5 +4,5 @@ import az.company.mssubscription.enums.SubscriptionType;
 import lombok.Builder;
 
 @Builder
-public record CreateSubscriptionRequest(Long userId, Long productId,Long cardId, SubscriptionType subscriptionType) {
+public record CreateSubscriptionRequest(Long userId, Long productId, Long cardId, SubscriptionType subscriptionType) {
 }

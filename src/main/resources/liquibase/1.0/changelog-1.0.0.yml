@@ -41,7 +41,6 @@ databaseChangeLog:
               - column:
                   name: expire_date
                   type: timestamp
-                  defaultValue: now()
                   constraints:
                     nullable: false
               - column:
