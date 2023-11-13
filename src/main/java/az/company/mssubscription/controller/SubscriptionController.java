@@ -32,5 +32,4 @@ public class SubscriptionController {
     public void cancelSubscription(@PathVariable Long id) {
         subscriptionService.cancelSubscription(id);
     }
-
 }

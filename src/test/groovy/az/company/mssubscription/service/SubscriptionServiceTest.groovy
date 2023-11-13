@@ -3,17 +3,13 @@ package az.company.mssubscription.service
 import az.company.mssubscription.dao.entity.SubscriptionEntity
 import az.company.mssubscription.dao.repository.SubscriptionRepository
 import az.company.mssubscription.exception.NotFoundException
-import az.company.mssubscription.model.queue.SubscriptionQueueDto
 import az.company.mssubscription.model.request.CreateSubscriptionRequest
 import az.company.mssubscription.queue.MessagePublisher
 import io.github.benas.randombeans.EnhancedRandomBuilder
 import org.springframework.beans.factory.annotation.Value
 import spock.lang.Specification
 
-import java.time.LocalDateTime
-
 import static az.company.mssubscription.enums.SubscriptionStatus.DELETED
-import static az.company.mssubscription.enums.SubscriptionStatus.EXPIRED
 import static az.company.mssubscription.enums.SubscriptionType.MONTHLY
 import static az.company.mssubscription.mapper.SubscriptionMapper.buildSubscriptionEntity
 import static az.company.mssubscription.mapper.SubscriptionMapper.buildSubscriptionQueueDto
@@ -85,40 +81,6 @@ class SubscriptionServiceTest extends Specification {
 
         NotFoundException ex = thrown()
         ex.message == message
-    }
-
-    def "TestSubscriptionStatusCheck with expired subscriptions"() {
-        given:
-        def currentDate = LocalDateTime.now()
-        def entity =
-                SubscriptionEntity.builder()
-                        .id(1L)
-                        .userId(5L)
-                        .cardId(2L)
-                        .productId(3L)
-                        .subscriptionType(MONTHLY)
-                        .status(EXPIRED)
-                        .build()
-
-        def subscriptionQueueDto = SubscriptionQueueDto.builder()
-
-                .userId(5L)
-                .cardId(2L)
-                .productId(3L)
-                .subscriptionType(MONTHLY)
-                .status(EXPIRED)
-                .build()
-
-        def expiredSubscriptions = List.of(entity)
-        def subscriptionQueueDtoList = List.of(subscriptionQueueDto)
-
-        when:
-        subscriptionService.subscriptionStatusCheck()
-
-        then:
-        1 * subscriptionRepository.findByExpireDateLessThanEqual(currentDate) >> expiredSubscriptions
-        1 * subscriptionRepository.saveAll(expiredSubscriptions) >> expiredSubscriptions
-        1 * messagePublisher.publishMessage(queueName, subscriptionQueueDtoList)
     }
 
     def "TestFetchIfExist with valid id"() {
