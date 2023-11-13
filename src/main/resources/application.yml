@@ -1,0 +1,29 @@
+server:
+  port: 2121
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/subscriptions_db
+    username: postgres
+    password: pass
+
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_files: false
+    open-in-view: false
+
+  rabbitmq:
+    host: localhost
+    username: ingress
+    password: ingress
+    port: 5672
+
+  liquibase:
+    change-log: classpath:liquibase/changelog-master.yml
+
+rabbitmq:
+  queue:
+    subscription: SUBSCRIPTION_Q
